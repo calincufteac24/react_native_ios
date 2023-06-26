@@ -31,6 +31,12 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>exp+instragram</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
           <string>fb960406668717301</string>
         </array>
       </dict>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { View, Button, TextInput, ImageBackground, StyleSheet, TouchableOpacity, Text, Image, Animated, } from 'react-native'
-import { auth, signInWithEmailAndPassword } from '../../firebase'
-import firebase from 'firebase/app';
+import { auth, signInWithEmailAndPassword, app, getAuth, signInWithCredential, FacebookAuthProvider } from '../../firebase'
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import * as Notifications from 'expo-notifications'
+
 
 const triggerNotifications = async () => {
   await Notifications.scheduleNotificationAsync({
@@ -55,39 +56,34 @@ export class Login extends Component {
     signInWithEmailAndPassword(auth, email, password)
   }
 
-  handleFacebookLogin = async () => {
-    try {
-      const { type, token } = await Facebook.logInWithReadPermissionsAsync({
-        permissions: ['public_profile', 'email'],
-      });
-
-      if (type === 'success') {
-        const credential = firebase.auth.FacebookAuthProvider.credential(token);
-        await signInWithCredential(auth, credential); // Use the signInWithCredential function from firebase.js
-      } else {
-        // Handle canceled login or error
-      }
-    } catch (error) {
-      // Handle error
-    }
-  }
-
    signInWithFB = async () => {
-    try {
-      await LoginManager.logInWithPermissions(['public_profile', 'email']);
-      const data = await AccessToken.getCurrentAccessToken();
-      if (!data) {
-        return;
-      }
-      const facebookCredential = FacebookAuthProvider.credential(data.accessToken);
-      const auth = getAuth();
-      const response = await signInWithCredential(auth, facebookCredential);
-      console.log(response);
-    } catch (e) {
-      console.log(e);
+    // Attempt login with permissions
+    const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+    if (result.isCancelled) {
+      throw 'User cancelled the login process';
     }
-  }
+    // Once signed in, get the users AccesToken
+    const data = await AccessToken.getCurrentAccessToken();
+    if (!data) {
+      throw 'Something went wrong obtaining access token';
+    }
 
+    const auth = getAuth(app);
+
+    // Create a Firebase credential with the AccessToken
+    const facebookAuthProvider = FacebookAuthProvider.credential(data.accessToken);
+    // console.log("provider ",facebookAuthProvider);
+    // const credential = facebookAuthProvider.credential(data.accessToken);
+    // Sign-in with credential from the Facebook user.
+    signInWithCredential(auth, facebookAuthProvider)
+    .then(() => {
+
+    })
+    .catch(error => {
+      // Handle Errors here.]
+      console.log(error);
+    });
+  }
 
   render() {
     return (

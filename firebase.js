@@ -1,6 +1,6 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithCredential, FacebookAuthProvider } from 'firebase/auth';
 import { doc, setDoc, getDoc, addDoc, deleteDoc, collection, serverTimestamp, query, where, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
@@ -21,5 +21,5 @@ const firestore = getFirestore()
 
 
 
-export { app, auth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, firestore, doc, setDoc, deleteDoc, getDoc, addDoc, collection, serverTimestamp, getDocs,  query, where, getAuth };
+export { app, auth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, firestore, doc, setDoc, deleteDoc, getDoc, addDoc, collection, serverTimestamp, getDocs,  query, where, getAuth, signInWithCredential, FacebookAuthProvider };
 export default app;

@@ -29,6 +29,7 @@ import { firestore, doc, getDoc, auth, collection, getDocs, setDoc, deleteDoc, s
     setShowWebView(!showWebView);
   };
 
+
   useEffect(() => {
     const {currentUser, posts} = props
 
@@ -145,8 +146,19 @@ import { firestore, doc, getDoc, auth, collection, getDocs, setDoc, deleteDoc, s
   }
 
 
-  if(user ===null) {
-    return  <View/>
+  if(user === null) {
+    return  (
+      <View style={styles.containerLog}>
+        <TouchableOpacity
+          style= {styles.buttonLogout}
+          title="Logout"
+          onPress={() => onLogout()}
+          >
+          <Text style={styles.buttonText}>Logout</Text>
+        </TouchableOpacity>
+        <Text style={styles.message}>Congratulations! You logged in successfully with Facebook.</Text>
+      </View>
+    )
   }
   return (
       <View style={styles.container}>
@@ -223,7 +235,7 @@ import { firestore, doc, getDoc, auth, collection, getDocs, setDoc, deleteDoc, s
                 <WebView
                   source={{ uri: 'https://en.wikipedia.org/wiki/Lewis_Hamilton' }}
                 />
- p               <TouchableOpacity style={styles.buttonContainer} onPress={handleWebViewToggle} >
+                <TouchableOpacity style={styles.buttonContainer} onPress={handleWebViewToggle} >
                   <Text style={styles.buttonText}>Close</Text>
                 </TouchableOpacity>
               </View>
@@ -362,7 +374,14 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 16
-  }
+  },
+  message: {
+    color: 'green',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
 })
 
 const mapStateToProps = (store) => ({
