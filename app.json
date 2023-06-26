@@ -3,7 +3,17 @@
     "name": "instragram",
     "slug": "instragram",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "plugins": [
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "960406668717301",
+          "clientToken": "6d92b3b228b7f9cd8913b330d722ffa0",
+          "displayName": "RN Facebook Login"
+        }
+      ]
+    ],
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -15,13 +25,27 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "SKAdNetworkItems": [
+          {
+            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
+          },
+          {
+            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
+          }
+        ]
+      },
+      "bundleIdentifier": "master"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
