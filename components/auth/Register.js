@@ -55,8 +55,8 @@ export class Register extends Component {
             style= {styles.TextInput}
             placeholder="Password"
             secureTextEntry = {true}
-              placeholderTextColor="rgb(96,96,96)"onChangeT
-            ext = {(password) => this.setState({ password })}
+            placeholderTextColor="rgb(96,96,96)"
+            onChangeText = {(password) => this.setState({ password })}
           />
           <TextInput
             style= {styles.TextInput}
